@@ -5,22 +5,23 @@
 # @Software: PyCharm
 
 # 模式
-# train:               训练分类器
-# interactive_predict: 交互模式
-# test:                跑测试集
-# convert2tf:          将torch模型保存为onnx文件
-# show_model_info:     打印模型参数
-mode = 'interactive_predict'
+# train:训练分类器
+# interactive_predict:交互模式
+# test:跑测试集
+# convert2tf:将torch模型保存为tf框架的pb格式文件
+# [train, interactive_predict, test, convert2tf]
+mode = 'train'
 
 # 使用GPU设备
-use_cuda = True
+# use_cuda = True
+use_cuda = False
 cuda_device = -1
 
 configure = {
     # 训练数据集
-    'train_file': 'data/example_datasets2/train_data.json',
+    'train_file': 'data/example_datasets1/train_data.json',
     # 验证数据集
-    'dev_file': 'data/example_datasets2/dev_data.json',
+    'dev_file': 'data/example_datasets1/dev_data.json',
     # 没有验证集时，从训练集抽取验证集比例
     'validation_rate': 0.15,
     # 测试数据集
@@ -28,13 +29,13 @@ configure = {
     # 使用的模型
     # bp: binary pointer
     # gp: global pointer
-    'model_type': 'gp',
+    'model_type': 'bp',
     # 模型保存的文件夹
-    'checkpoints_dir': 'checkpoints/example_datasets2',
+    'checkpoints_dir': 'checkpoints/example_datasets1',
     # 模型名字
     'model_name': 'best_model.pkl',
     # 类别列表
-    'classes': ['person', 'location', 'organization'],
+    'classes': ['company', 'position', 'detail'],
     # decision_threshold
     'decision_threshold': 0.5,
     # 是否使用苏神的多标签分类的损失函数，默认使用BCELoss
