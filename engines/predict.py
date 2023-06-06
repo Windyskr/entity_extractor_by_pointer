@@ -33,18 +33,42 @@ class Predictor:
         预测接口
         """
         start_time = time.time()
-        encode_results = self.data_manager.tokenizer(sentence, padding='max_length')
-        input_ids = encode_results.get('input_ids')
-        token_ids = torch.unsqueeze(torch.LongTensor(input_ids), 0).to(self.device)
-        attention_mask = torch.unsqueeze(torch.LongTensor(encode_results.get('attention_mask')), 0).to(self.device)
-        segment_ids = torch.unsqueeze(torch.LongTensor(encode_results.get('token_type_ids')), 0).to(self.device)
-        logits, _ = self.model(token_ids, attention_mask, segment_ids)
-        logit = torch.squeeze(logits.to('cpu'))
-        results = self.data_manager.extract_entities(sentence, logit)
-        self.logger.info('predict time consumption: %.3f(ms)' % ((time.time() - start_time) * 1000))
+        max_len = 512  # 设定滑动窗口的最大长度
+        stride = 256  # 设定滑动窗口的步长
+
+        # 将输入句子分割成多个小序列
+        tokens = sentence.split(' ')
+        windows = [tokens[i:i + max_len] for i in range(0, len(tokens), stride)]
+
         results_dict = {}
-        for class_id, result_set in results.items():
-            results_dict[self.data_manager.reverse_categories[class_id]] = list(result_set)
+
+        # 对每个小序列进行预测
+        for window in windows:
+            window_sentence = ' '.join(window)
+            encode_results = self.data_manager.tokenizer(window_sentence, padding=True, truncation=True,
+                                                         max_length=max_len)
+            input_ids = encode_results.get('input_ids')
+            token_ids = torch.unsqueeze(torch.LongTensor(input_ids), 0).to(self.device)
+            attention_mask = torch.unsqueeze(torch.LongTensor(encode_results.get('attention_mask')), 0).to(self.device)
+            segment_ids = torch.unsqueeze(torch.LongTensor(encode_results.get('token_type_ids')), 0).to(self.device)
+            logits, _ = self.model(token_ids, attention_mask, segment_ids)
+            logit = torch.squeeze(logits.to('cpu'))
+
+            # 提取当前小序列的预测结果
+            window_results = self.data_manager.extract_entities(window_sentence, logit)
+
+            # 合并预测结果
+            for class_id, result_set in window_results.items():
+                if class_id not in results_dict:
+                    results_dict[class_id] = set()
+                results_dict[class_id].update(result_set)
+
+        self.logger.info('predict time consumption: %.3f(ms)' % ((time.time() - start_time) * 1000))
+
+        # 将结果从set转换为list
+        for class_id in results_dict.keys():
+            results_dict[class_id] = list(results_dict[class_id])
+
         return results_dict
 
     def predict_test(self):
