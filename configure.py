@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# @Author : lishouxian
-# @Email : gzlishouxian@gmail.com
+# @Author : Windyskr
+# @Email : windyskr@outlook.com
 # @File : configure.py
 # @Software: PyCharm
 
@@ -13,15 +13,14 @@
 mode = 'train'
 
 # 使用GPU设备
-# use_cuda = True
 use_cuda = False
 cuda_device = -1
 
 configure = {
     # 训练数据集
-    'train_file': 'data/example_datasets1/train_data.json',
+    'train_file': 'data/resume_datasets/train_data.json',
     # 验证数据集
-    'dev_file': 'data/example_datasets1/dev_data.json',
+    'dev_file': 'data/resume_datasets/dev_data.json',
     # 没有验证集时，从训练集抽取验证集比例
     'validation_rate': 0.15,
     # 测试数据集
@@ -31,12 +30,13 @@ configure = {
     # gp: global pointer
     'model_type': 'bp',
     # 模型保存的文件夹
-    'checkpoints_dir': 'checkpoints/example_datasets1',
+    'checkpoints_dir': 'checkpoints/resume_datasets',
     # 模型名字
     'model_name': 'best_model.pkl',
     # 类别列表
-    'classes': ['company', 'position', 'detail'],
-    # decision_threshold
+    'classes': ['姓名', '电话', '性别', '项目责任', '籍贯', '毕业院校', '毕业时间', '工作内容', '出生年月', '项目名称',
+                '项目时间', '学位', '工作时间', '工作单位', '职务', '政治面貌', '落户市县'],
+    # decision_threshold,binary pointer时需要指定
     'decision_threshold': 0.5,
     # 是否使用苏神的多标签分类的损失函数，默认使用BCELoss
     'use_multilabel_categorical_cross_entropy': True,
@@ -55,11 +55,11 @@ configure = {
     # warmup步数，-1自动推断为总步数的0.1
     'num_warmup_steps': -1,
     # 句子最大长度
-    'max_sequence_length': 200,
+    'max_sequence_length': 512,
     # epoch
     'epoch': 50,
     # batch_size
-    'batch_size': 16,
+    'batch_size': 32,
     # dropout rate
     'dropout_rate': 0.5,
     # 每print_per_batch打印损失函数
@@ -71,5 +71,5 @@ configure = {
     # 训练是否提前结束微调
     'is_early_stop': True,
     # 训练阶段的patient
-    'patient': 5,
+    'patient': 10,
 }
