@@ -18,9 +18,9 @@ cuda_device = -1
 
 configure = {
     # 训练数据集
-    'train_file': 'data/resume_datasets/train_data.json',
+    'train_file': 'data/resume_datasets/train_data_1.json',
     # 验证数据集
-    'dev_file': 'data/resume_datasets/dev_data.json',
+    'dev_file': 'data/resume_datasets/dev_data_1.json',
     # 没有验证集时，从训练集抽取验证集比例
     'validation_rate': 0.15,
     # 测试数据集
