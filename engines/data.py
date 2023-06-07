@@ -38,7 +38,7 @@ class DataManager:
         for item in data:
             text = item.get('text')
             entity_results = {}
-            token_results = self.tokenizer(text)
+            token_results = self.tokenizer(text, max_length=self.max_sequence_length, truncation=True)
             token_ids = self.padding(token_results.get('input_ids'))
             segment_ids = self.padding(token_results.get('token_type_ids'))
             attention_mask = self.padding(token_results.get('attention_mask'))
