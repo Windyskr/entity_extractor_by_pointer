@@ -26,10 +26,10 @@ if __name__ == '__main__':
             )
     else:
         device = 'cpu'
-    # logger.info(f'device: {device}')
+    logger.info (f'device: {device}')
 
     from engines.predict import Predictor
-    predictor = Predictor(configure, data_manager, device, logger=None)
+    predictor = Predictor (configure, data_manager, device, logger)
     predictor.predict_one('warm up')
 
 
