@@ -10,7 +10,7 @@
 # test:跑测试集
 # convert2tf:将torch模型保存为tf框架的pb格式文件
 # [train, interactive_predict, test, convert2tf]
-mode = 'train'
+mode = 'interactive_predict'
 
 # 使用GPU设备
 use_cuda = False
@@ -30,7 +30,7 @@ configure = {
     # gp: global pointer
     'model_type': 'bp',
     # 模型保存的文件夹
-    'checkpoints_dir': 'checkpoints/resume_datasets',
+    'checkpoints_dir': 'checkpoints/resume_datasets/',
     # 模型名字
     'model_name': 'best_model.pkl',
     # 类别列表
