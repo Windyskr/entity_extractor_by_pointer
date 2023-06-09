@@ -60,7 +60,7 @@ def main ( ):
             print (sentence)
             result = predictor.predict_one (sentence)
             print (result)
-            return jsonify ({"result": result})
+            return jsonify (result)
         except Exception as e:
             # 在出现错误时返回一个错误消息
             return jsonify ({"error": str (e)}), 500
