@@ -10,17 +10,17 @@
 # test:跑测试集
 # convert2tf:将torch模型保存为tf框架的pb格式文件
 # [train, interactive_predict, test, convert2tf]
-mode = 'interactive_predict'
+mode = 'train'
 
 # 使用GPU设备
-use_cuda = False
+use_cuda = True
 cuda_device = -1
 
 configure = {
     # 训练数据集
-    'train_file': 'data/resume_datasets/train_data_1.json',
+    'train_file': 'data/resume_datasets/train_data_0611.json',
     # 验证数据集
-    'dev_file': 'data/resume_datasets/dev_data_1.json',
+    'dev_file': 'data/resume_datasets/dev_data_0611.json',
     # 没有验证集时，从训练集抽取验证集比例
     'validation_rate': 0.15,
     # 测试数据集

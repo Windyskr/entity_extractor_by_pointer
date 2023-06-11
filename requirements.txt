@@ -3,3 +3,6 @@ torchaudio==0.13.1
 torchvision==0.14.1
 tqdm==4.65.0
 transformers==4.27.3
+docx2txt~=0.8
+numpy~=1.24.3
+Flask~=2.3.2
