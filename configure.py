@@ -18,9 +18,9 @@ cuda_device = -1
 
 configure = {
     # 训练数据集
-    'train_file': 'data/resume_datasets/train_data_0611.json',
+    'train_file': 'data/resume_datasets/train_data_0611_2.json',
     # 验证数据集
-    'dev_file': 'data/resume_datasets/dev_data_0611.json',
+    'dev_file': 'data/resume_datasets/dev_data_0611_2.json',
     # 没有验证集时，从训练集抽取验证集比例
     'validation_rate': 0.15,
     # 测试数据集
@@ -34,7 +34,7 @@ configure = {
     # 模型名字
     'model_name': 'best_model.pkl',
     # 类别列表
-    'classes': ['姓名', '电话', '性别', '项目责任', '籍贯', '毕业院校', '毕业时间', '工作内容', '出生年月', '项目名称',
+    'classes': ['姓名', '电话', '性别', '籍贯', '毕业院校', '毕业时间', '出生年月', '项目名称',
                 '项目时间', '学位', '工作时间', '工作单位', '职务', '政治面貌', '落户市县'],
     # decision_threshold,binary pointer时需要指定
     'decision_threshold': 0.5,
@@ -55,7 +55,7 @@ configure = {
     # warmup步数，-1自动推断为总步数的0.1
     'num_warmup_steps': -1,
     # 句子最大长度
-    'max_sequence_length': 512,
+    'max_sequence_length': 200,
     # epoch
     'epoch': 50,
     # batch_size
