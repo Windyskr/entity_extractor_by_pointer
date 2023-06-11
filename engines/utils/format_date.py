@@ -38,7 +38,7 @@ def convert_dates_accurate_to_the_day(text):
 
     text = text.replace("—", "-")
     for pattern in patterns:
-        text = convert_with_pattern(text_date, *pattern)
+        text = convert_with_pattern(text, *pattern)
 
     return text
 
