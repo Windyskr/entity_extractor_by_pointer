@@ -136,28 +136,27 @@ def make():
                             schema_dict["type"] = item
                             schema_dict["entity"] = raw_examples[line]['教育经历'][i][item]
                             output_list.append(schema_dict)
-
-            result_dict = {
-                "text": text_content,
-                "entities": output_list
-            }
-            result_dict = json.dumps(result_dict, ensure_ascii=False)
+                result_dict = {
+                    "text": text_content,
+                    "entities": output_list
+                }
+            # result_dict = json.dumps(result_dict, ensure_ascii=False)
             # print(result_dict)
             result_list.append(result_dict)
         # 保存到json文件，加上当前时间
         # 获取当前时间作为文件名的一部分
         current_time = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-        file_name = 'resume_train_20200121/' + f'train_date_format_{current_time}.json'
+        file_name = 'resume_train_20200121/' + f'raw_data_format_{current_time}.json'
         # 将数据写入JSON文件
         # result_list = repr(result_list).replace('\\', '')
-        with open(file_name, 'w') as file:
-            json.dump(result_list, file, ensure_ascii=False)
+        with open(file_name, 'w', encoding="utf-8") as file:
+            json.dump(result_list, file, ensure_ascii=False, indent=4)
         print('数据写入完成！')
 
 
 # 切分数据集
 def split_data():
-    with open('resume_train_20200121/train_data_formatted.json', "r", encoding="utf-8") as f1:
+    with open('resume_train_20200121/raw_data_format.json', "r", encoding="utf-8") as f1:
         raw_examples = json.loads(f1.read())
         # 打乱数据
         random.shuffle(raw_examples)
@@ -168,14 +167,14 @@ def split_data():
         # 保存到json文件，加上当前时间
         # 获取当前时间作为文件名的一部分
         current_time = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-        train_file_name = 'resume_train_20200121/' + f'train_date_format_{current_time}.json'
-        dev_file_name = 'resume_train_20200121/' + f'dev_date_format_{current_time}.json'
+        train_file_name = 'resume_train_20200121/' + f'train_data_format_{current_time}.json'
+        dev_file_name = 'resume_train_20200121/' + f'dev_data_format_{current_time}.json'
         # test_file_name = 'resume_train_20200121/' + f'test_date_format_{current_time}.json'
         # 将数据写入JSON文件
-        with open(train_file_name, 'w') as file:
-            json.dump(train_data, file, ensure_ascii=False)
-        with open(dev_file_name, 'w') as file:
-            json.dump(dev_data, file, ensure_ascii=False)
+        with open(train_file_name, 'w', encoding="utf-8") as file:
+            json.dump(train_data, file, ensure_ascii=False, indent=4)
+        with open(dev_file_name, 'w', encoding="utf-8") as file:
+            json.dump(dev_data, file, ensure_ascii=False, indent=4)
         # with open(test_file_name, 'w') as file:
         #     json.dump(test_data, file, ensure_ascii=False)
         print('分割完成！')
