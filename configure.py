@@ -10,10 +10,10 @@
 # test:跑测试集
 # convert2tf:将torch模型保存为tf框架的pb格式文件
 # [train, interactive_predict, test, convert2tf]
-mode = 'train'
+mode = 'interactive_predict'
 
 # 使用GPU设备
-use_cuda = True
+use_cuda = False
 cuda_device = -1
 
 configure = {
@@ -34,8 +34,22 @@ configure = {
     # 模型名字
     'model_name': 'best_model.pkl',
     # 类别列表
-    'classes': ['姓名', '电话', '性别', '籍贯', '毕业院校', '毕业时间', '出生年月', '项目名称',
-                '项目时间', '学位', '工作时间', '工作单位', '职务', '政治面貌', '落户市县'],
+    'classes': ["姓名",
+                "电话",
+                "性别",
+                "籍贯",
+                "毕业院校",
+                "毕业时间",
+                "工作内容",
+                "出生年月",
+                "项目名称",
+                "项目时间",
+                "学位",
+                "工作时间",
+                "工作单位",
+                "职务",
+                "政治面貌",
+                "落户市县"],
     # decision_threshold,binary pointer时需要指定
     'decision_threshold': 0.5,
     # 是否使用苏神的多标签分类的损失函数，默认使用BCELoss

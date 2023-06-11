@@ -25,7 +25,13 @@ class Predictor:
         else:
             from engines.models.GlobalPointer import EffiGlobalPointer
             self.model = EffiGlobalPointer(num_labels=num_labels, device=device).to(device)
-        self.model.load_state_dict(torch.load(os.path.join(self.checkpoints_dir, self.model_name)))
+        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        self.model.to(device)
+        if device.type == 'cuda':
+            self.model.load_state_dict(torch.load(os.path.join(self.checkpoints_dir, self.model_name)))
+        else:
+            self.model.load_state_dict(
+                torch.load(os.path.join(self.checkpoints_dir, self.model_name), map_location=device))
         self.model.eval()
 
     def predict_one(self, sentence):
