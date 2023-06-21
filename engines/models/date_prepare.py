@@ -23,7 +23,7 @@ def formate_date_on_json(date_json):
             # 日期格式转换
             date_json[key] = format_date.convert_dates_accurate_to_the_day(date_json[key])
             # 半角转全角
-            date_json[key] = date_json[key].replace(".", "。")
+            # date_json[key] = date_json[key].replace(".", "。")
             date_json[key] = date_json[key].replace(",", "，")
             # 去除空格
             date_json[key] = re.sub(r'\s+', '', date_json[key])
@@ -44,7 +44,7 @@ def test():
                 text_content = re.sub(r'\n+', '，', text_content)
                 text_content = re.sub(r'，+', '，', text_content)
                 # 半角转全角
-                text_content = text_content.replace(".", "。")
+                # text_content = text_content.replace(".", "。")
                 text_content = text_content.replace(",", "，")
                 # 去除空格
                 text_content = re.sub(r'\s+', '', text_content)
@@ -72,7 +72,7 @@ def make():
             text_content = re.sub(r'\n+', '，', text_content)
             text_content = re.sub(r'，+', '，', text_content)
             # 半角转全角
-            text_content = text_content.replace(".", "。")
+            # text_content = text_content.replace(".", "。")
             text_content = text_content.replace(",", "，")
             # 去除空格
             text_content = re.sub(r'\s+', '', text_content)
@@ -181,5 +181,5 @@ def split_data():
 
 
 # test()
-# make()
-split_data()
+make()
+# split_data()
